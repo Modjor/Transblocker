@@ -30,7 +30,10 @@ If everything goes fine you should expect:
 
 This script will block all incoming traffic on the virtual network interface, except for port 51412 (Transmissionqt peer listening port). You can edit the iprules.sh script to change/add the existing rules.
 If you do so, use the variable $iptables to call iptables, and $interface call the VPN NIC:
+
 '''''''''''''''''''''
+
 $iptables -A INPUT -i $interface -p tcp -m tcp --dport 80 -j ACCEPT	
+
 '''''''''''''''''''''
  
