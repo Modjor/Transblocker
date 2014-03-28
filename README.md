@@ -1,11 +1,22 @@
-transblocker
+Transblocker
 ============
+
+Purposes of Transblocker are:
+- Making sure ALL your torrent traffic is going thought your VPN connection
+- Firewall is always enabled on your VPN interface (By default, Synology doesn NOT enable firewall on the VPN client which is quite a huge risk when using it to connect to public VPN)
+- VPN connection is always up and stays this way
+
+Why would you use this script?
+If you ar using some automatic provider/downloader tools associated with your transmission client, you probably want that all these few points are always properly set. 
+
+
 
 transblocker is a set of scripts for Synology DSM that maintains VPN client connection, associated iptables rules, and Transmissionbt binding to VPN interface
 
 
 IMORTANT: transblocker is a very Alpha set of scripts - use it at our own risk
 I’m running this smoothly on my own NAS, but it doesn’t mean it’s 100% safe
+
 
 I’ve been using these scripts on late 4.x and early 5.x DSM
 
