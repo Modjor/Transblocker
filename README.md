@@ -30,6 +30,7 @@ Make sure to edit/create the following file before creating a cron:
 -	Transblocker.conf 
 -	Transblocker.sh: Set the installation path on line 14
 -	Create your own VPN provider ovpn file – and add the path to the file containing your username and password (userpath.auth, as described in sample.ovpn)
+
 Once you have edited the files accordingely to your own environment, run transblocker once  from command line to make sure it’s working fine. From the installation directory, type:
 “sh transblocker.sh”
 
