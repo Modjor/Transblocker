@@ -60,6 +60,10 @@ else
     $iptables -A PROTECT_VPN -i $interface -m limit --limit 1/s --limit-burst 3 -j RETURN
     $iptables -A PROTECT_VPN -i $interface -j DROP
 
+    $iptables -A INPUT -i $interface -p icmp -m limit --limit  1/s --limit-burst 1 -j ACCEPT
+    $iptables -A INPUT -i $interface -p icmp -m limit --limit 1/s --limit-burst 1 -j LOG --log-prefix PING-DROP:
+    $iptables -A INPUT -i $interface -p icmp -j DROP
+
 ########################NO MODIFICATION AFTER THAT LINE##########################
      # Allow incoming traffic for existing/related connections
      $iptables -A INPUT -i $interface -m state --state ESTABLISHED,RELATED -j ACCEPT
