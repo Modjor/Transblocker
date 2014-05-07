@@ -54,7 +54,7 @@ else
     $iptables -A INPUT -i $interface -p udp -m udp --dport 51412 -j ACCEPT 
     $iptables -A INPUT -i $interface -p tcp -m tcp --dport 51412 -j ACCEPT 
 	
-    # DDOS Protection
+    # DOS Protection
     $iptables -N DOS_PROTECT_VPN
     $iptables -A INPUT -i $interface -p tcp --syn -j PROTECT_VPN
     $iptables -A PROTECT_VPN -i $interface -m limit --limit 1/s --limit-burst 3 -j RETURN
