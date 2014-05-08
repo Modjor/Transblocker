@@ -50,15 +50,15 @@ else
     #Set incoming connections to ACCEPT on the VPN interface
     #$iptables -A INPUT -i $interface -p tcp --destination-port  22  -j ACCEPT # example to allow incoming ssh connections
 	
-    # Allow incoming conneciton on 51413 (Transmission Peer listening port)
+    # Allow incoming conneciton on 51412 (Transmission Peer listening port)
     $iptables -A INPUT -i $interface -p udp -m udp --dport 51412 -j ACCEPT 
     $iptables -A INPUT -i $interface -p tcp -m tcp --dport 51412 -j ACCEPT 
 	
     # DOS Protection
     $iptables -N DOS_PROTECT_VPN
-    $iptables -A INPUT -i $interface -p tcp --syn -j PROTECT_VPN
-    $iptables -A PROTECT_VPN -i $interface -m limit --limit 1/s --limit-burst 3 -j RETURN
-    $iptables -A PROTECT_VPN -i $interface -j DROP
+    $iptables -A INPUT -i $interface -p tcp --syn -j DOS_PROTECT_VPN
+    $iptables -A DOS_PROTECT_VPN -i $interface -m limit --limit 1/s --limit-burst 3 -j RETURN
+    $iptables -A DOS_PROTECT_VPN -i $interface -j DROP
 
     $iptables -A INPUT -i $interface -p icmp -m limit --limit  1/s --limit-burst 1 -j ACCEPT
     $iptables -A INPUT -i $interface -p icmp -m limit --limit 1/s --limit-burst 1 -j LOG --log-prefix PING-DROP:
@@ -68,7 +68,7 @@ else
      # Allow incoming traffic for existing/related connections
      $iptables -A INPUT -i $interface -m state --state ESTABLISHED,RELATED -j ACCEPT
 	
-      #if none of the rules were matched DROP  ALL incoming traffic on vpn interface                     #
-      $iptables -A INPUT -i $interface -j DROP
+     #if none of the rules were matched DROP  ALL incoming traffic on vpn interface                     #
+     $iptables -A INPUT -i $interface -j DROP
 
 fi;
