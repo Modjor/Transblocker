@@ -18,7 +18,7 @@ IMORTANT: transblocker is a very Alpha set of scripts - use it at our own risk
 I’m running this smoothly on my own NAS, but it doesn’t mean it’s 100% safe
 
 
-I’ve been using these scripts on late 4.x and early 5.x DSM
+I’ve been using these scripts on late 4.x and 5.x DSM
 
 transblocker is a set of scripts that are mainly designed to run on Synology DSM, to achieve he following:
 - Maintaining VPN client connection (reconnect when lost) – Only OpenVPN supported so far. But plan is also to add PPTP
@@ -26,10 +26,16 @@ transblocker is a set of scripts that are mainly designed to run on Synology DSM
 - Maintaining Transmissionbt binding with the Vitual interface IP, by automatically updating transmission settings.json with the new VPN IP when it changes
 
 Transblocker.sh is the main script that you should schedule to run using a cron task.
-Make sure to edit/create the following file before creating a cron:
--	Transblocker.conf 
--	Transblocker.sh: Set the installation path on line 14
--	Create your own VPN provider ovpn file – and add the path to the file containing your username and password (userpath.auth, as described in sample.ovpn)
+
+How To install:
+
+I) Create a new VPN client connection - PPTP or OpenVPN, using your Synology Control Panel => Network
+ Note: You can only have one connection of each. If multiple PPTP or multiple OpenVPN client conenctio nare setup, the script will fail (however, you can have 1 OpenVPN connection and 1 PPTP connection)
+
+II) Make sure to edit the following file before creating a cron:
+-	Transblocker.conf: Make sure to specify the VPN Type your ar eusing (openvpn or pptp) 
+-	Transblocker.sh: Set the installation path on line 14 (full path to the diretory where you copied the traslocker files)
+
 
 Once you have edited the files accordingely to your own environment, run transblocker once  from command line to make sure it’s working fine. From the installation directory, type:
 “sh transblocker.sh”
