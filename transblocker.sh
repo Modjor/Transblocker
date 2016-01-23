@@ -11,13 +11,15 @@
 echo "Transblocker"
 
 # IMPORTANT!!! INSTALLATION PATH: SPECIFY PATH TO TRANSBLOCKER DIRECTORY (Ex: /volume1/scripts/transblocker)
-installpath="/volume1/Scripts/transblocker"
+installpath="/volume2/Scripts/transblocker"
 
 
 
 #Settings defaults values
 configfile="transblocker.conf"
 iptables="/sbin/iptables"
+#vpntype="openvpn"
+
 
 
 
@@ -25,10 +27,16 @@ iptables="/sbin/iptables"
 if  [ -f $installpath/$configfile ]
 then echo "Loading configuration file" && . $installpath/$configfile
 else echo "Unable to load "$installpath"/"$configfile	&& echo "verify your installpath variable in transblocker.sh" && exit 5;
-
 fi
 
-
+# Set the name of the VPN NIC depending of the VPN client configured in transblocker.conf (tun0 for OpenVPN and ppp0 for PPTP)
+if [[ $vpntype = "openvpn" ]]
+then echo "VPN Type set to OpenVPN, using tun0 as NIC & ovpnc.sh as connection script" && interface="tun0" &&  connectscript="ovpnc.sh"
+else if [[ $vpntype="pptp" ]]
+then echo "VPN Type set to PPTP, using ppp0 as NIC& pptp.sh as connection script" && interface="ppp0" &&  connectscript="pptp.sh"
+else echo "vpntype value unknown. VPN Type not set properly. Please review your transblobker.conf settings" && exit 5;
+fi
+fi
 
 
 
