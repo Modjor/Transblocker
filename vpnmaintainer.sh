@@ -9,6 +9,15 @@
 
 echo "Begin of vpnmaintainer.sh"
 
+
+echo "vpn type set to " $vpntype
+
+
+
+
+
+
+echo "using" $installpath/$connectscript "as connection script"
 # Making sure connection scripts exist
 if  [ -f $installpath/$connectscript ]
 then echo "Connection Script detected. Continuing";
