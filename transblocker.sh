@@ -18,7 +18,7 @@ installpath="/volume2/Scripts/transblocker"
 #Settings defaults values
 configfile="transblocker.conf"
 iptables="/sbin/iptables"
-#vpntype="openvpn"
+
 
 
 
@@ -29,7 +29,7 @@ then echo "Loading configuration file" && . $installpath/$configfile
 else echo "Unable to load "$installpath"/"$configfile	&& echo "verify your installpath variable in transblocker.sh" && exit 5;
 fi
 
-# Set the name of the VPN NIC depending of the VPN client configured in transblocker.conf (tun0 for OpenVPN and ppp0 for PPTP)
+# Set the name of the VPN NIC and connection script depending of the VPN client configured in transblocker.conf (tun0/ovpnc.sh for OpenVPN and ppp0/pptp.sh for PPTP)
 if [[ $vpntype = "openvpn" ]]
 then echo "VPN Type set to OpenVPN, using tun0 as NIC & ovpnc.sh as connection script" && interface="tun0" &&  connectscript="ovpnc.sh"
 else if [[ $vpntype="pptp" ]]
