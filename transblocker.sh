@@ -1,6 +1,6 @@
 #!/bin/ash
 # This script:
-# - Checks if VPN is running, and reconnect if disconnected (vpntester.sh)
+# - Checks if VPN is running, and reconnect if disconnected (vpnmaintainer.sh)
 # - Checks the iptables rules for vpn and update them if needed
 # - Checks if the IP has changed since the last execution, and update the transmission config file with the new IP (updatetransmi.sh)
 # 
