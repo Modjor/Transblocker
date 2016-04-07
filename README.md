@@ -3,7 +3,7 @@ Transblocker
 
 Purposes of Transblocker are:
 - Making sure your torrent traffic is ONLY going thought your VPN connection
-- Firewall is always enabled on your VPN interface (prior to DSM 6.x, Synology did NOT enable firewall on the VPN client which is quite a huge risk when using it to connect to public VPN)
+- Firewall is always enabled on your VPN interface (feature available for DSM 5 and lower only - prior to DSM 6.x, Synology did NOT enable firewall on the VPN client which was quite a huge risk, especially when using it to connect to public VPN)
 - VPN connection is always up and stays this way
 
 Why would you use this script?
