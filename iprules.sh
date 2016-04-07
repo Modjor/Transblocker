@@ -3,6 +3,9 @@
 # this script checks if VPPN is running and iptables rules running.
 # If VPN is up but no rules are assigned, it will apply the rules
 
+# WARNING: IF YOU ARE USING DSM 6.X OR HIGER THIS SCRIPT IS OBSOLETE AND WON'T BE EXECUTED. 
+#	YOU MUST CONFIGURE THE FIREWALL USING THE DSM WEB ADMIN =>CONTROL PANEL => SECURITY => FIREWALL
+
 # Possible exit Codes
 # 20: VPN is not connected. Rules NOT applied
 # 21: Rules to the VPN interface have been already applied - not need to reapply.
