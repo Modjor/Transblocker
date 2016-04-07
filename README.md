@@ -45,7 +45,7 @@ If everything goes fine you should expect:
 -	IPTables rules applied to your VPN interface if it wasn’t already
 -	Stop the transmission service, update settings.json with the right binding ip and restart the transmission service
 
-
+DSM 5.x and lower only:
 This script will block all incoming traffic on the virtual network interface, except for port 51412 (Transmissionqt peer listening port). You can edit the iprules.sh script to change/add the existing rules.
 If you do so, use the variable $iptables to call iptables, and $interface call the VPN NIC:
 
