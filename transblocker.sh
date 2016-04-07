@@ -1,6 +1,6 @@
 #!/bin/ash
 # This script:
-# - Checks if VPN is running, and reconnect if disconnected (vpnmaintainer.sh)
+# - Checks if VPN is running, and reconnect if disconnected (vpnmaintainer)
 # - Checks the iptables rules for vpn and update them if needed
 # - Checks if the IP has changed since the last execution, and update the transmission config file with the new IP (updatetransmi.sh)
 # 
@@ -11,7 +11,7 @@
 echo "Transblocker"
 
 # IMPORTANT!!! INSTALLATION PATH: SPECIFY PATH TO TRANSBLOCKER DIRECTORY (Ex: /volume1/scripts/transblocker)
-installpath="/volume2/Scripts/transblocker"
+installpath="/volume1/Scripts/transblocker"
 
 
 
@@ -47,13 +47,26 @@ else echo "VPN is already running. Continuing with IPTables check"
 
 fi
 
-echo "iptable check"
-# Does Does IP Rules have been set? Calling iprule.sh if not
-if [ -n "$($iptables -L -v | grep "$interface")" ]
-then echo "VPN Rules for "$interface "are already set, no need to reapply";
-else echo "Applying iptables for "$interface && . $installpath/iprules.sh
+# Firewall scripts
+# Checking DSM Version
+dsm_major_version=`cat /etc/VERSION | grep majorversion | sed 's/[^0-9]*//g'`
+echo "Your are using DSM Version" $dsm_major_version".X"
 
+# If DSM Major Versionon is > 5, ignore Firewall configuration, if DSM <= 5 apply firewall rules using iprules.sh
+if (($dsm_major_version > "5" ))
+then
+	echo "You are running DSM 6.x or higher, Skipping Firewall check and configuration" &&  echo " YOU MUST CONFIGURE THE FIREWALL FROM THE DSM WEB ADMIN INTERFACE" 
+else 
+	echo "You are running DSM 5.x or lower, Transblocker must check/configure the firewall for VPN interface"
+	echo "iptable check"
+	# Does Does IP Rules have been set? Calling iprule.sh if not
+	if [ -n "$($iptables -L -v | grep "$interface")" ]
+	then echo "VPN Rules for "$interface "are already set, no need to reapply";
+	else echo "Applying iptables for "$interface && . $installpath/iprules.sh
+	fi
+	
 fi
+
 
 
 # Starting Transmission check/config update script (updatesettings.sh)
