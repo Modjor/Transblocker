@@ -9,7 +9,7 @@ CONNECTION_NAME=`cat /usr/syno/etc/synovpnclient/openvpn/ovpnclient.conf | grep 
 CONNECTION_ID=`ls /usr/syno/etc/synovpnclient/openvpn/ | grep client | awk 'BEGIN {FS="_"} {print $2}' | awk 'BEGIN {FS="."} {print $1}'`
 
 
-ls /usr/syno/etc/synovpnclient/openvpn/ | grep client | awk 'BEGIN {FS="_"} {print $2}' | awk 'BEGIN {FS="."} {print $1}'
+
 
 if echo `ifconfig tun0` | grep -q "00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00"
 then
