@@ -18,7 +18,7 @@ else
         echo conf_id=$CONNECTION_ID > /usr/syno/etc/synovpnclient/vpnc_connecting
         echo conf_name=$CONNECTION_NAME >> /usr/syno/etc/synovpnclient/vpnc_connecting
         echo proto=openvpn >> /usr/syno/etc/synovpnclient/vpnc_connecting
-        synovpnc reconnect --protocol=openvpn --name=$CONNECTION_NAME
+        /usr/syno/bin/synovpnc reconnect --protocol=openvpn --name=$CONNECTION_NAME
 fi
 
 
