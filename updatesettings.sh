@@ -42,8 +42,8 @@ vpnipaddr=`/sbin/ifconfig $nic | grep 'inet addr:' | cut -d: -f2 | awk '{ print 
 # Making sure IP Address has been captured - Exit if not
 if [ -n "$(echo $vpnipaddr)" ]
 then echo "VPN IP Address captured: " $vpnipaddr
-elif [ -z "$(. $ctrlscript status | grep "is not running")" ]
-	then echo "VPN IP Address has NOT been captured" && echo "Transmission is running" && $ctrlscript stop && echo "Exiting updatesettings.sh" && return 46;
+elif [ -z "$(. $ctrlscript status transmission | grep "is not running")" ]
+	then echo "VPN IP Address has NOT been captured" && echo "Transmission is running" && $ctrlscript stop transmission && echo "Exiting updatesettings.sh" && return 46;
 	else echo "VPN IP Address has NOT been captured" && return 45;
 
 fi
@@ -57,14 +57,14 @@ else echo "IP Address has changed since last run. "$settingsfile " has to be upd
 fi
 
 # If IP has changed, updating settings.json
-if [ -z "$(. $ctrlscript status | grep "is not running")" ]
-then echo "Transmission is currently running. Stopping service before updating binding settings" && $ctrlscript stop && echo "Transmission is now stopped." && sed -i "s/\"bind-address-ipv4\":.*\$/\"bind-address-ipv4\": \"$vpnipaddr\",/" $settingsfile
+if [ -z "$(. $ctrlscript status transmission | grep "is not running")" ]
+then echo "Transmission is currently running. Stopping service before updating binding settings" && $ctrlscript stop transmission && echo "Transmission is now stopped." && sed -i "s/\"bind-address-ipv4\":.*\$/\"bind-address-ipv4\": \"$vpnipaddr\",/" $settingsfile
 else echo "Transmission is NOT running." && sed -i "s/\"bind-address-ipv4\":.*\$/\"bind-address-ipv4\": \"$vpnipaddr\",/" $settingsfile
 fi
 
 
 # Making sure settings have been applied before restarting Transmission
 if [ -n "$(cat $settingsfile | grep $vpnipaddr)" ]
-then echo $settingsfile " has been successfully updated" && echo "(Re)starting Transmission" && $ctrlscript start && return 0;
+then echo $settingsfile " has been successfully updated" && echo "(Re)starting Transmission" && $ctrlscript start transmission && return 0;
 else echo $settingsfile " has NOT been updated but should have been. Transmission will not be restarted"
 fi
